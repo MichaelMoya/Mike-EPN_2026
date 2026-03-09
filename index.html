@@ -1,22 +1,788 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Mi Portafolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mike | Portafolio de Programación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1b2a;
+      --panel: rgba(13, 27, 42, 0.75);
+      --panel-2: rgba(17, 34, 58, 0.88);
+      --line: rgba(255,255,255,0.08);
+      --text: #eef4ff;
+      --muted: #9db1cc;
+      --primary: #60a5fa;
+      --primary-2: #22d3ee;
+      --accent: #a78bfa;
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(34, 211, 238, 0.18), transparent 25%),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.16), transparent 28%),
+        linear-gradient(135deg, #050b14 0%, #07111f 40%, #0c1626 100%);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 17, 31, 0.6);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand span {
+      background: linear-gradient(90deg, var(--primary), var(--primary-2), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 82px 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid rgba(96,165,250,0.18);
+      background: rgba(96,165,250,0.08);
+      border-radius: 999px;
+      color: #d5e6ff;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.9rem);
+      line-height: 1.02;
+      margin-bottom: 18px;
+      font-weight: 800;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ffffff, #93c5fd, #67e8f9, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 680px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      color: #06101e;
+      box-shadow: 0 16px 32px rgba(34, 211, 238, 0.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 38px rgba(34, 211, 238, 0.25);
+    }
+
+    .btn-outline {
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.07);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      padding: 14px 18px;
+      border-radius: 18px;
+      min-width: 150px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(17,34,58,0.95), rgba(9,20,36,0.95));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, rgba(96,165,250,0.45), rgba(34,211,238,0.18), rgba(167,139,250,0.25));
+      z-index: 0;
+      filter: blur(24px);
+      opacity: 0.75;
+    }
+
+    .hero-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 18px;
+    }
+
+    .hero-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d8e7ff;
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 680px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .panel h3 {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--muted);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .skill {
+      background: rgba(96,165,250,0.08);
+      border: 1px solid rgba(96,165,250,0.15);
+      color: #d7e8ff;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 600;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+
+    .project-card {
+      background: linear-gradient(180deg, rgba(12,24,41,0.9), rgba(9,18,31,0.96));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(96,165,250,0.25);
+    }
+
+    .project-image {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 22px;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .project-top h3 {
+      font-size: 1.2rem;
+    }
+
+    .project-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(96,165,250,0.2), rgba(34,211,238,0.15));
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #cfe7ff;
+      font-size: 1.1rem;
+    }
+
+    .project-content p {
+      color: var(--muted);
+      margin: 14px 0 16px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #dcecff;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      padding: 11px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .mini-btn:hover {
+      background: rgba(255,255,255,0.09);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .contact-item i {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(96,165,250,0.14);
+      color: #dcecff;
+    }
+
+    .contact-item small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .contact-item strong {
+      font-size: 1rem;
+    }
+
+    footer {
+      padding: 24px 0 42px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 54px;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .btn,
+      .mini-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-actions,
+      .project-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="#inicio" class="brand">Mike<span>Code</span></a>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
 
-<h1>Hola, soy Mike</h1>
+  <header class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <div class="tag">
+          <i class="fa-solid fa-code"></i>
+          Portafolio web de programación
+        </div>
+        <h1>
+          Hola, soy <span class="gradient-text">Mike</span><br>
+          y construyo proyectos de software con estilo.
+        </h1>
+        <p>
+          Este es mi espacio para mostrar trabajos de programación, ejercicios académicos,
+          aplicaciones y proyectos personales. Aquí comparto mi progreso, mis habilidades
+          y mi enfoque profesional en desarrollo de software.
+        </p>
+        <div class="hero-actions">
+          <a href="#proyectos" class="btn btn-primary">
+            <i class="fa-solid fa-laptop-code"></i>
+            Ver proyectos
+          </a>
+          <a href="#contacto" class="btn btn-outline">
+            <i class="fa-solid fa-paper-plane"></i>
+            Contacto
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>3+</strong>
+            <span>Proyectos publicados</span>
+          </div>
+          <div class="stat">
+            <strong>C++</strong>
+            <span>Lenguaje destacado</span>
+          </div>
+          <div class="stat">
+            <strong>Web</strong>
+            <span>Diseño moderno y limpio</span>
+          </div>
+        </div>
+      </div>
 
-<p>Bienvenido a mi página de proyectos de programación.</p>
+      <div class="hero-card">
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80" alt="Espacio de programación moderno">
+        </div>
+        <h3>Mi stack visual</h3>
+        <p>
+          Un portafolio profesional debe combinar código, diseño visual e identidad personal.
+          Esta plantilla está pensada para que puedas reemplazar fácilmente textos, imágenes y enlaces.
+        </p>
+        <div class="stack">
+          <span class="chip">HTML5</span>
+          <span class="chip">CSS3</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">GitHub Pages</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<h2>Mis proyectos</h2>
+  <main>
+    <section id="sobre-mi">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>Sobre mí</h2>
+            <p>
+              Presenta aquí quién eres, qué haces y qué tipo de proyectos desarrollas.
+            </p>
+          </div>
+        </div>
 
-<ul>
-<li>Proyecto 1 - Sistema de estudiantes en C++</li>
-<li>Proyecto 2 - Pila dinámica</li>
-<li>Proyecto 3 - Calculadora</li>
-</ul>
+        <div class="about-grid">
+          <div class="panel">
+            <h3><i class="fa-solid fa-user"></i> Perfil</h3>
+            <p>
+              Soy Mike y me apasiona la programación, la resolución de problemas y el desarrollo de soluciones
+              académicas y prácticas. Este portafolio reúne ejercicios, sistemas y aplicaciones que he creado
+              para fortalecer mis habilidades y construir mi presencia profesional en la web.
+            </p>
+          </div>
 
+          <div class="panel">
+            <h3><i class="fa-solid fa-bolt"></i> Tecnologías</h3>
+            <p>Estas son algunas áreas que puedes destacar en tu portafolio:</p>
+            <div class="skills">
+              <span class="skill">C++</span>
+              <span class="skill">POO</span>
+              <span class="skill">Estructuras de Datos</span>
+              <span class="skill">HTML</span>
+              <span class="skill">CSS</span>
+              <span class="skill">JavaScript</span>
+              <span class="skill">GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>Proyectos destacados</h2>
+            <p>
+              Aquí puedes mostrar tus mejores trabajos con imágenes, iconos, tecnologías y enlaces a GitHub.
+            </p>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80" alt="Proyecto de gestión de estudiantes">
+            </div>
+            <div class="project-content">
+              <div class="project-top">
+                <h3>Sistema de Gestión de Estudiantes</h3>
+                <div class="project-icon"><i class="fa-solid fa-user-graduate"></i></div>
+              </div>
+              <div class="badges">
+                <span class="badge">C++</span>
+                <span class="badge">POO</span>
+                <span class="badge">Menú interactivo</span>
+              </div>
+              <p>
+                Aplicación para registrar, buscar y mostrar información de estudiantes mediante clases,
+                validaciones y estructuras organizadas.
+              </p>
+              <div class="project-actions">
+                <a href="#" class="mini-btn"><i class="fa-solid fa-eye"></i> Ver proyecto</a>
+                <a href="#" class="mini-btn"><i class="fa-brands fa-github"></i> Código fuente</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Proyecto de estructuras de datos">
+            </div>
+            <div class="project-content">
+              <div class="project-top">
+                <h3>Pila y Cola Dinámica</h3>
+                <div class="project-icon"><i class="fa-solid fa-diagram-project"></i></div>
+              </div>
+              <div class="badges">
+                <span class="badge">C++</span>
+                <span class="badge">Nodos</span>
+                <span class="badge">Estructuras</span>
+              </div>
+              <p>
+                Implementación manual de estructuras dinámicas usando nodos enlazados y operaciones como insertar,
+                eliminar y mostrar datos.
+              </p>
+              <div class="project-actions">
+                <a href="#" class="mini-btn"><i class="fa-solid fa-eye"></i> Ver proyecto</a>
+                <a href="#" class="mini-btn"><i class="fa-brands fa-github"></i> Código fuente</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Proyecto web calculadora">
+            </div>
+            <div class="project-content">
+              <div class="project-top">
+                <h3>Calculadora Web</h3>
+                <div class="project-icon"><i class="fa-solid fa-calculator"></i></div>
+              </div>
+              <div class="badges">
+                <span class="badge">HTML</span>
+                <span class="badge">CSS</span>
+                <span class="badge">JavaScript</span>
+              </div>
+              <p>
+                Interfaz web para operaciones matemáticas básicas con diseño moderno, botones interactivos y estructura limpia.
+              </p>
+              <div class="project-actions">
+                <a href="#" class="mini-btn"><i class="fa-solid fa-eye"></i> Ver proyecto</a>
+                <a href="#" class="mini-btn"><i class="fa-brands fa-github"></i> Código fuente</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>Contacto</h2>
+            <p>
+              Cambia estos datos por tus enlaces reales para que la gente pueda encontrarte fácilmente.
+            </p>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="panel">
+            <h3><i class="fa-solid fa-address-card"></i> Información</h3>
+            <div class="contact-list">
+              <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                  <small>Correo</small>
+                  <strong>tucorreo@ejemplo.com</strong>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fa-brands fa-github"></i>
+                <div>
+                  <small>GitHub</small>
+                  <strong>github.com/tuusuario</strong>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fa-brands fa-linkedin"></i>
+                <div>
+                  <small>LinkedIn</small>
+                  <strong>linkedin.com/in/tuusuario</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3><i class="fa-solid fa-lightbulb"></i> Sugerencia</h3>
+            <p>
+              Para que esta página se vea todavía más profesional, después puedes reemplazar las imágenes de ejemplo
+              por capturas de tus propios programas, agregar enlaces reales a tus repositorios y crear una sección
+              adicional con certificados, investigaciones o experiencia docente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Mike · Portafolio de Programación · Diseñado para GitHub Pages
+    </div>
+  </footer>
 </body>
 </html>
